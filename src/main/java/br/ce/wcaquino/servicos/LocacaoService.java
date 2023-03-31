@@ -14,7 +14,14 @@ public class LocacaoService {
 	private String vPrivada;
 	
 	
-	public Locacao alugarFilme(Usuario usuario, Filme filme) {
+	public Locacao alugarFilme(Usuario usuario, Filme filme) throws Exception {
+		if(filme.getEstoque() == 0) {
+			throw new Exception("Filme sem estoque...");
+		} 
+		if (filme.getPrecoLocacao() < 0) {
+			throw new Exception("Preço negativo, não pode ser locado...");
+		}
+		
 		Locacao locacao = new Locacao();
 		locacao.setFilme(filme);
 		locacao.setUsuario(usuario);
